@@ -1,4 +1,4 @@
-## TOML parser and encoder for Go with reflection
+## TOML parser and encoder for Go with reflection and comments support.
 
 TOML stands for Tom's Obvious, Minimal Language. This Go package provides a
 reflection interface similar to Go's standard library `json` and `xml` 
@@ -44,6 +44,7 @@ For the simplest example, consider some TOML file as just a list of keys
 and values:
 
 ```toml
+// Comment for Age
 Age = 25
 Cats = [ "Cauchy", "Plato" ]
 Pi = 3.14
@@ -55,7 +56,7 @@ Which could be defined in Go as:
 
 ```go
 type Config struct {
-  Age int
+  Age int `comment:"Comment for Age"`
   Cats []string
   Pi float64
   Perfection []int
