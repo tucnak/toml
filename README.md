@@ -1,4 +1,4 @@
-## TOML parser and encoder for Go with reflection and comments support.
+## TOML parser and encoder for Go with reflection and comments support (Fork).
 
 TOML stands for Tom's Obvious, Minimal Language. This Go package provides a
 reflection interface similar to Go's standard library `json` and `xml` 
