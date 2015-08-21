@@ -1,4 +1,26 @@
-## TOML parser and encoder for Go with reflection
+## TOML parser and encoder for Go with reflection and comments support added.
+
+### Forked for comments support. Example:
+```toml
+// Person age
+Age = 25
+Cats = [ "Cauchy", "Plato" ]
+Pi = 3.14
+Perfection = [ 6, 28, 496, 8128 ]
+DOB = 1987-07-05T05:45:00Z
+```
+
+Which could be defined in Go as:
+
+```go
+type Config struct {
+  Age int `comment:"Person age"`
+  Cats []string
+  Pi float64
+  Perfection []int
+  DOB time.Time // requires `import time`
+}
+```
 
 TOML stands for Tom's Obvious, Minimal Language. This Go package provides a
 reflection interface similar to Go's standard library `json` and `xml` 
@@ -29,11 +51,6 @@ tomlv some-toml-file.toml
 [![Build status](https://api.travis-ci.org/BurntSushi/toml.png)](https://travis-ci.org/BurntSushi/toml)
 
 
-### Testing
-
-This package passes all tests in
-[toml-test](https://github.com/BurntSushi/toml-test) for both the decoder
-and the encoder.
 
 ### Examples
 
@@ -44,6 +61,7 @@ For the simplest example, consider some TOML file as just a list of keys
 and values:
 
 ```toml
+// Person age
 Age = 25
 Cats = [ "Cauchy", "Plato" ]
 Pi = 3.14
@@ -55,7 +73,7 @@ Which could be defined in Go as:
 
 ```go
 type Config struct {
-  Age int
+  Age int `comment:"Person age"`
   Cats []string
   Pi float64
   Perfection []int
