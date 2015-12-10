@@ -337,16 +337,6 @@ func (enc *Encoder) eStruct(key Key, rv reflect.Value) {
 				enc.newline()
 			}
 
-			comment := sft.Tag.Get("comment")
-			if comment != "" {
-				indentLevel := len([]string(key))
-				var indentStr string
-				if indentLevel != 0 {
-					indentStr += strings.Repeat(enc.Indent, indentLevel)
-				}
-				enc.wf(indentStr+"#%s\n", comment)
-			}
-
 			keyName := sft.Tag.Get("toml")
 			if keyName == "-" {
 				continue
@@ -360,6 +350,16 @@ func (enc *Encoder) eStruct(key Key, rv reflect.Value) {
 				continue
 			} else if _, ok := opts["omitzero"]; ok && isZero(sf) {
 				continue
+			}
+
+			comment := sft.Tag.Get("comment")
+			if comment != "" {
+				indentLevel := len([]string(key))
+				var indentStr string
+				if indentLevel != 0 {
+					indentStr += strings.Repeat(enc.Indent, indentLevel)
+				}
+				enc.wf(indentStr+"# %s\n", comment)
 			}
 
 			if comment == "" {
